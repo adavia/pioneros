@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load staticfiles %}
+
+<!-- MAIN CONTAINER -->
+<section class="maincontainer">
+    <!-- PAGE TITLE -->
+    <div class="page-title">Cuerpo Técnico</div>
+    <!-- PAGE CONTAINER -->
+    <section class="pagecontainer using-grid">
+        <div class="grid">
+            <div class="unit one-fifth teamlist">
+                <h3>Mascota</h3>
+                <ul>
+                    {% for player in players %}
+                    {% if player.position.name == 'Mascota' %}
+                    <li>
+                        <a href="#{{player.id}}" class="popup-with-zoom-anim">{{player}}</a>
+                        <!-- POPUP BOX -->
+                        <div id="{{player.id}}" class="teamlist-popup zoom-anim-dialog mfp-hide">
+                            <img src="/media/{{player.image}}" alt="" />
+                            <h3>{{player}}</h3>
+                            <p>Mascota: {{player.position.name}}</p>
+                        </div>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="unit one-fifth teamlist">
+                <h3>Director Técnico</h3>
+                <ul>
+                    {% for player in players %}
+                    {% if player.position.name == 'Director Técnico' %}
+                    <li>
+                        <a href="#{{player.id}}" class="popup-with-zoom-anim">{{player}}</a>
+                        <!-- POPUP BOX -->
+                        <div id="{{player.id}}" class="teamlist-popup zoom-anim-dialog mfp-hide">
+                            <img src="/media/{{player.image}}" alt="" />
+                            <h3>{{player}}</h3>
+                            <p>Cargo: {{player.position.name}}</p>
+                            <p>Nacionalidad: {{player.nationality}}</p>
+                        </div>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="unit one-fifth teamlist">
+                <h3>Doctor</h3>
+                <ul>
+                    {% for player in players %}
+                    {% if player.position.name == 'Doctor' %}
+                    <li>
+                        <a href="#{{player.id}}" class="popup-with-zoom-anim">{{player}}</a>
+                        <!-- POPUP BOX -->
+                        <div id="{{player.id}}" class="teamlist-popup zoom-anim-dialog mfp-hide">
+                            <img src="/media/{{player.image}}" alt="" />
+                            <h3>{{player}}</h3>
+                            <p>Cargo: {{player.position.name}}</p>
+                            <p>Nacionalidad: {{player.nationality}}</p>
+                        </div>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="unit one-fifth teamlist">
+                <h3>Prep. Físico</h3>
+                <ul>
+                    {% for player in players %}
+                    {% if player.position.name == 'Preparador Físico' %}
+                    <li>
+                        <a href="#{{player.id}}" class="popup-with-zoom-anim">{{player}}</a>
+                        <!-- POPUP BOX -->
+                        <div id="{{player.id}}" class="teamlist-popup zoom-anim-dialog mfp-hide">
+                            <img src="/media/{{player.image}}" alt="" />
+                            <h3>{{player}}</h3>
+                            <p>Cargo: {{player.position.name}}</p>
+                            <p>Nacionalidad: {{player.nationality}}</p>
+                        </div>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+             <div class="unit one-fifth teamlist">
+                <h3>Aux. y Utilero</h3>
+                <ul>
+                    {% for player in players %}
+                    {% if player.position.name == 'Auxiliar' %}
+                    <li>
+                        <a href="#{{player.id}}" class="popup-with-zoom-anim">{{player}}</a>
+                        <!-- POPUP BOX -->
+                        <div id="{{player.id}}" class="teamlist-popup zoom-anim-dialog mfp-hide">
+                            <img src="/media/{{player.image}}" alt="" />
+                            <h3>{{player}}</h3>
+                            <p>Cargo: {{player.position.name}}</p>
+                            <p>Nacionalidad: {{player.nationality}}</p>
+                        </div>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </section>
+    <div class="clear"></div>
+    {% include 'footer.html' %}
+    <!-- BACK TO TOP BUTTON -->
+    <a href="#" class="back-to-top"></a>
+</section>
+
+{% endblock %}

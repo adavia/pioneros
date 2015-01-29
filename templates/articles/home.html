@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load staticfiles %}
+
+<!-- MAIN CONTAINER -->
+<section class="maincontainer">
+    <!-- FLEXSLIDER -->
+    <section class="flex-wrapper">
+        <div id="slider" class="flexslider">
+            <ul class="slides">
+            {% for banner in banners %}
+                <li>
+                    <div class="flex-title">
+                        <h3>{{banner.title}}</h3>
+                        <p>{{banner.body|truncatechars_html:60}}</p>
+                    </div>
+                    {% with banner.image_set.all|first as img %}
+                    	<img src="{{ img.thumbnail1.url }}" alt="" />
+                    {% endwith %}
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+    </section>
+    <div class="clear"></div>
+    <!-- FIXTURE TITLE -->
+    <div class="scores-title">Próximos juegos y últimos resultados</div>
+    <!-- FIXTURE SLIDER -->
+    <section class="transparent-bg">
+        <div id="fixture">
+        	{% for game in games %}
+	            <div class="slide-content">
+	                <div class="match-results">
+	                    <span>{{game.local}}</span>
+	                    <span class="score">
+	                    {{game.score_local|default_if_none:"?"}} 
+	                    - 
+	                    {{game.score_visitor|default_if_none:"?"}}</span>
+	                    <span>{{game.visitor}}</span>
+	                </div>
+	                <div class="match-place">
+	                    <span>{{game.date|date:"D d M Y - H:i"}} en {{game.local.stadium|title}}</span>
+	                </div>
+	            </div>
+            {% endfor %}
+        </div>
+        <div class="clear"></div>
+    </section>
+    <!-- PAGE CONTAINER -->
+    <section class="pagecontainer">
+        <!-- LEFT CONTAINER -->
+        <section class="leftcontainer">
+            <h1>Últimas Noticias</h1>
+            <hr/>
+            <!-- POST -->
+            {% for article in articles %}
+	            <article class="post">
+	                <figure>
+	                	{% with article.image_set.all|first as img %}
+		                    <a href="{% url 'article:detail' year=article.created_at.year month=article.created_at.month day=article.created_at.day slug=article.url %}">
+		                        <img src="{{ img.thumbnail2.url }}" alt="" />
+		                    </a>
+		                {% endwith %}
+	                    <figcaption>
+	                        <h2>{{article.title}}</h2>
+	                        <div class="post-date">{{article.created_at|date:"D d M Y - H:i"}}</div>
+	                    </figcaption>
+	                </figure>
+	                <p>
+	                	{{article.body|truncatechars_html:200}}
+	                    <a href="{% url 'article:detail' year=article.created_at.year month=article.created_at.month day=article.created_at.day slug=article.url %}">Leer más</a>
+	                </p>
+	            </article>
+	        	<hr/>
+	        {% empty %}
+                <h3>No se encontró ningún artículo</h3>
+                <hr/>
+            {% endfor %}
+
+	        <!-- VIEW ALL BUTTON -->
+            <div class="blogpager">
+                <div class="previous">
+                    <a href="{% url 'article:list' %}" class="button next-prev">Ver más..</a>
+                </div>
+            </div>
+        </section>
+        <!-- RIGHT CONTAINER -->
+        <section class="rightcontainer">
+            <!-- SIDEBAR BOX -->
+            <div class="sidebarbox">
+                <h3>Buscar</h3>
+                {% include 'search.html' %}
+            </div>
+            <!-- SIDEBAR BOX -->
+            <div class="sidebarbox">
+                <h3>Sobre nosotros..</h3>
+                <p>Somos un club deportivo y social que nace en 1984, cuando tienen la oportunidad de participar por primera vez en el futbol profesional de la tercera división. En 1985 obtiene el 1er. Titulo del Sureste. Toma su nombre, que hoy en día es emblema de esta Ciudad y significa "Serpiente Guardián".
+                    <a href="{% url 'team:history' %}">Leer más...</a>
+                </p>
+            </div>
+            <!-- SIDEBAR BOX -->
+            <div class="sidebarbox">
+                <div class="sidebarbox-title">
+                    <h3>Twitter Pioneros Cancún FC</h3>
+                </div>
+                <!-- TABLE -->
+                <a data-border-color="#fff" class="twitter-timeline" href="https://twitter.com/PionerosFC" data-widget-id="492498075399618560">Tweets por el @PionerosFC.</a>
+            </div>
+            <!-- SIDEBAR BOX -->
+            <div class="sidebarbox">
+                <div class="sidebarbox-title">
+                    <h3>Últimos resultados de liga</h3>
+                </div>
+                <!-- TABLE -->
+                <div class="fixture-row">
+
+                </div>
+            </div>
+            <!-- SIDEBAR BOX -->
+            <div class="sidebarbox">
+                <div class="sidebarbox-title">
+                    <h3>Galería de fotos</h3>
+                </div>
+                <!-- GALLERY -->
+                <ul class="team-gallery">
+                    {% for img in images %}
+                    <li>
+                        <a class="clb-photo" href="{{ img.thumbnail1.url }}">
+                            <img src="{{ img.thumbnail3.url }}" alt="" />
+                        </a>
+                    </li>
+                    {% endfor %}
+                    {% for video in videos %}
+                        <li>
+                            <a class="clb-iframe" href="{{video.link}}">
+                                {% with video.article.image_set.all|first as img %}
+                                    <img src="{{ img.thumbnail3.url }}" alt="" />
+                                {% endwith %}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <a href="{% url 'article:gallery' %}" class="button button-widget">Ver más</a>
+            </div>
+        </section>
+    </section>
+    <div class="clear"></div>
+    <!-- SPONSORS TITLE -->
+    <div class="logos-title">Patrocinadores</div>
+    <!-- SPONSORS SLIDER -->
+    <section class="transparent-bg">
+        <div id="logos">
+            {% for sponsor in sponsors %}
+            <div class="slide">
+                <a href="{{sponsor.link}}">
+                    <img src="/media/{{sponsor.image}}" alt="" />
+                </a>
+            </div>
+            {% endfor %}       
+        </div>
+    </section>
+    {% include 'footer.html' %}
+    <!-- BACK TO TOP BUTTON -->
+    <a href="#" class="back-to-top"></a>
+</section>
+
+{% endblock %}

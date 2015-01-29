@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- MAIN CONTAINER -->
+<section class="maincontainer">
+    <!-- PAGE TITLE -->
+    <div class="page-title">Centros de formación</div>
+    <!-- PAGE CONTAINER -->
+    <section class="pagecontainer using-grid">
+        <!-- GRID -->
+        <div class="grid">
+            <!-- LEFT SIDE -->
+            <div class="unit whole">
+                {% for center in centers %}
+                <h2>{{center.title}}</h2>
+                <p>{{center.description}}</p>
+                <!--horizontal Tabs-->
+                <div id="horizontalTab">
+                    <ul class="resp-tabs-list">
+                        {% for location in center.centerlocation_set.all %}
+                        <li>{{location.name}}</li>
+                        {% endfor %}
+                    </ul>
+                    <div class="resp-tabs-container">
+                        {% for location in center.centerlocation_set.all %}      
+                        <div class="grid">
+                            <div class="unit half">
+                                <h4>{{location.name}}</h4>
+                                <div class="flex-video">
+                                    <img src="{{location.location}}"/>
+                                </div>
+                            </div>
+                            <div class="unit half">
+                                <h5>Información</h5>
+                                <ul class="center-info">
+                                    <li>
+                                        Entrenadores:  
+                                        {% for trainer in location.trainers.all %}
+                                            {{trainer}}
+                                        {% endfor %}
+                                    </li>
+                                    <li>Responsables: {{location.responsable}}</li>
+                                </ul>
+                                <h5>Horarios</h5>
+                                <ul class="center-info">
+                                    {% for schedule in location.centerschedule_set.all %}
+                                    <li>{{schedule.day}}: {{schedule.time_frame}}</li>
+                                        <ul>
+                                            <li>{{schedule.description}}</li>
+                                        </ul>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                        {% endfor %}    
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <div class="clear"></div>
+    {% include 'footer.html' %}
+    <!-- BACK TO TOP BUTTON -->
+    <a href="#" class="back-to-top"></a>
+</section>
+
+{% endblock %}

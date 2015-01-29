@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- MAIN CONTAINER -->
+<section class="maincontainer">
+    <!-- PAGE TITLE -->
+    <div class="page-title">Fotos Aficionados</div>
+    <!-- PAGE CONTAINER -->
+    <section class="pagecontainer">
+        <!--vertical Tabs-->
+        <div id="verticalTab">
+            <ul class="resp-tabs-list">
+                {% for game in games %}
+                    <li>{{game.date|date:"D d M Y"}}</li>
+                {% endfor %}
+            </ul>
+            <div class="resp-tabs-container">
+                {% for game in games %}          
+                <div>
+                    <!-- GALLERY WITHOUT FILTERS -->
+                    <ul class="team-gallery">
+                        {% for img in game.image_set.all %}
+                        <li>
+                            <a class="clb-photo" href="/media/{{img.image}}">
+                                <img src="/media/{{img.thumbnail1}}" alt="" />
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <div class="clear"></div>
+    {% include 'footer.html' %}
+    <!-- BACK TO TOP BUTTON -->
+    <a href="#" class="back-to-top"></a>
+</section>
+
+{% endblock %}

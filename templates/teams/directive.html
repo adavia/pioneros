@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load staticfiles %}
+
+<!-- MAIN CONTAINER -->
+<section class="maincontainer">
+    <!-- PAGE TITLE -->
+    <div class="page-title">Directiva</div>
+    <!-- PAGE CONTAINER -->
+    <section class="pagecontainer">
+        {% for directive in directives %}
+            <h3>{{directive}}</h3>
+            <p>
+                {{directive.roll.name}}
+            </p>
+            <hr>
+        {% endfor %}
+    </section>
+    <div class="clear"></div>
+    {% include 'footer.html' %}
+    <!-- BACK TO TOP BUTTON -->
+    <a href="#" class="back-to-top"></a>
+</section>
+
+{% endblock %}

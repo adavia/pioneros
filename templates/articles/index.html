@@ -1,0 +1,32 @@
+{% extends 'splash.html' %}
+
+{% block content %}
+
+{% load staticfiles %}
+
+
+<!-- HEADER -->
+<section id="splash">
+    <div class="logo">
+        <img width="150" src="{% static 'images/logo.png' %}" alt="" />
+    </div>
+    <div class="text-logo">
+        <a href="{% url 'article:home' %}"><h1>Ingresar</h1></a>    
+    </div>
+    <div class="social">
+        <a href="https://www.facebook.com/pioneroscancunfc">
+            <img src="{% static 'images/social-icons/facebook.png' %}" alt="Facebook" />
+        </a>
+        <a href="https://twitter.com/pionerosfc">
+            <img src="{% static 'images/social-icons/twitter.png' %}" alt="Twitter" />
+        </a>
+        <a href="http://pinsta.me/pionerosfc">
+            <img src="{% static 'images/social-icons/instagram.png' %}" alt="Instagram" />
+        </a>
+        <a href="https://www.youtube.com/user/clubpionerosdecancun">
+            <img src="{% static 'images/social-icons/youtube.png' %}" alt="YouTube" />
+        </a>
+    </div>
+</section>
+
+{% endblock %}

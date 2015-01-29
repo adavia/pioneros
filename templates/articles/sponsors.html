@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- MAIN CONTAINER -->
+<section class="maincontainer">
+    <!-- PAGE TITLE -->
+    <div class="page-title">Patrocinadores</div>
+    <!-- PAGE CONTAINER -->
+    <section class="pagecontainer using-grid">
+        <div class="grid">
+            <div class="unit whole">
+                <h2>Nuestra visión</h2>
+                <p>La continua presencia de Pioneros en los medios locales de nuestro municipio y el fuerte factor emocional con el que es percibido nuestro club, le ofrecen las mejores condiciones para hacer crecer su marca.
+                </p>
+                <p>Existen distintos formatos de patrocinio y colaboración para que su empresa pueda acceder a ser parte de nuestro club. Por favor <a href="{% url 'article:contact' %}">contáctenos</a> y con gusto atenderemos su propuesta.</p>
+                <hr>
+                <h2>Patrocinadores oficiales</h2>
+                <section class="transparent-bg">
+                    <div id="logos">
+                        {% for sponsor in sponsors %}
+                        <div class="slide">
+                            <a href="{{sponsor.link}}">
+                                <img src="/media/{{sponsor.image}}" alt="" />
+                            </a>
+                        </div>
+                        {% endfor %}       
+                    </div>
+                </section>
+            </div>
+        </div>
+    </section>
+    <div class="clear"></div>
+    {% include 'footer.html' %}
+    <!-- BACK TO TOP BUTTON -->
+    <a href="#" class="back-to-top"></a>
+</section>
+
+{% endblock %}

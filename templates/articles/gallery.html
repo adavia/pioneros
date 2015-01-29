@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- MAIN CONTAINER -->
+<section class="maincontainer">
+    <!-- PAGE TITLE -->
+    <div class="page-title">Galería</div>
+    <!-- PAGE CONTAINER -->
+    <section class="pagecontainer">
+        <!--vertical Tabs-->
+        <div id="verticalTab">
+            <ul class="resp-tabs-list">
+                <li>Últimas fotos y videos</li>
+            </ul>
+            <div class="resp-tabs-container">          
+                <div>
+                    <!-- FILTERS -->
+                    <ul id="filters1" class="filters">
+                        <li>
+                            <a href="#" data-filter="all" class="active">Todo</a>
+                        </li>
+                        <li>
+                            <a href="#" data-filter="photos">Fotos</a>
+                        </li>
+                        <li>
+                            <a href="#" data-filter="videos">Videos</a>
+                        </li>
+                    </ul>
+                    <div class="clear"></div>
+                    <!-- GALLERY -->
+                    <ul id="gridbox1" class="team-gallery">
+                        {% for img in images %}
+                        <li data-filter="photos">
+                            <a class="clb-photo" href="/media/{{img.image}}" data-rel="photos">
+                                <img src="/media/{{img.thumbnail3}}" alt="" />
+                            </a>
+                        </li>
+                        {% endfor %}
+                        {% for video in videos %}
+                        <li data-filter="videos">
+                            <a class="clb-iframe" href="{{video.link}}">
+                                {% with video.article.image_set.all|first as img %}
+                                    <img src="{{ img.thumbnail3.url }}" alt="" />
+                                {% endwith %}
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="clear"></div>
+    {% include 'footer.html' %}
+    <!-- BACK TO TOP BUTTON -->
+    <a href="#" class="back-to-top"></a>
+</section>
+
+{% endblock %}

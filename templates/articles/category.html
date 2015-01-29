@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load staticfiles %}
+
+<!-- MAIN CONTAINER -->
+<section class="maincontainer">
+    <!-- PAGE TITLE -->
+    <div class="page-title">Fuerzas básicas</div>
+    <!-- PAGE CONTAINER -->
+    <section class="pagecontainer">
+        <!-- LEFT CONTAINER -->
+        <section class="leftcontainer">
+            <!-- POST -->
+            {% for article in articles %}
+                <article class="post">
+                    <figure>
+                        {% with article.image_set.all|first as img %}
+                            <a href="{% url 'article:detail' year=article.created_at.year month=article.created_at.month day=article.created_at.day slug=article.url %}">
+                                <img src="{{ img.thumbnail2.url }}" alt="" />
+                            </a>
+                        {% endwith %}
+                        <figcaption>
+                            <h2>{{article.title}}</h2>
+                            <div class="post-date">{{article.created_at|date:"d-m-Y - H:i"}}</div>
+                        </figcaption>
+                    </figure>
+                    <p>
+                        {{article.body|truncatechars_html:200}}
+                        <a href="{% url 'article:detail' year=article.created_at.year month=article.created_at.month day=article.created_at.day slug=article.url %}">Leer más</a>
+                    </p>
+                </article>
+                <hr/>
+            {% empty %}
+                <h3>No se encontró ningún artículo</h3>
+                <hr/>
+            {% endfor %}
+            
+            <!-- PAGER -->
+            <div class="blogpager">
+                {% if articles.has_previous %}
+                    <div class="previous">
+                        <a href="?pag={{articles.previous_page_number}}" class="button next-prev">&#8249; Anterior</a>
+                    </div>
+                {% endif %}
+                {% if articles.has_next %}
+                    <div class="next">
+                        <a href="?pag={{articles.next_page_number}}" class="button next-prev">Siguiente &#8250;</a>
+                    </div>
+                {% endif %}
+            </div>
+        </section>
+        <!-- RIGHT CONTAINER -->
+        <section class="rightcontainer">
+            <!-- SIDEBAR BOX -->
+            <div class="sidebarbox">
+                <h3>Buscar</h3>
+                {% include 'search.html' %}
+            </div>
+            <!-- SIDEBAR BOX -->
+            <div class="sidebarbox">
+                <h3>Artículos recientes</h3>
+                <ul class="sidebarlist">
+                    {% for article in articles %}
+                    <li>
+                        <a href="{% url 'article:detail' year=article.created_at.year month=article.created_at.month day=article.created_at.day slug=article.url %}">{{article.title}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <!-- SIDEBAR BOX -->
+            <div class="sidebarbox">
+                <div class="sidebarbox-title">
+                    <h3>Últimos resultados de liga</h3>
+                </div>
+                <!-- TABLE -->
+                <div class="fixture-row">
+
+                </div>
+            </div>
+            <!-- SIDEBAR BOX -->
+            <div class="sidebarbox">
+                <div class="sidebarbox-title">
+                    <h3>Galería de fotos</h3>
+                </div>
+                <!-- GALLERY -->
+                <ul class="team-gallery">
+                    {% for img in images %}
+                    <li>
+                        <a class="clb-photo" href="{{ img.thumbnail1.url }}">
+                            <img src="{{ img.thumbnail3.url }}" alt="" />
+                        </a>
+                    </li>
+                    {% endfor %}
+                    {% for video in videos %}
+                        <li>
+                            <a class="clb-iframe" href="{{video.link}}">
+                                {% with video.article.image_set.all|first as img %}
+                                    <img src="{{ img.thumbnail3.url }}" alt="" />
+                                {% endwith %}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <a href="{% url 'article:gallery' %}" class="button button-widget">Ver más</a>
+            </div>
+        </section>
+    </section>
+    {% include 'footer.html' %}
+    <!-- BACK TO TOP BUTTON -->
+    <a href="#" class="back-to-top"></a>
+</section>
+
+{% endblock %}

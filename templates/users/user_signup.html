@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- MAIN CONTAINER -->
+<section class="maincontainer">
+    <!-- PAGE TITLE -->
+    <div class="page-title">Registrarse en el sitio</div>
+    <!-- PAGE CONTAINER -->
+    <section class="pagecontainer using-grid">   
+        <!-- CONTACT FORM -->
+        	<!-- GRID -->
+            <div class="grid">
+            	<!-- LEFT SIDE -->
+                <div class="unit two-thirds">
+
+                	<h5>Ingrese sus datos</h5>
+
+                	{% if message %}
+	                	<div class="black message">
+	                        <span class="message-close"></span>
+	                        <h5>Registro realizado exitosamente!</h5>
+	                        <p>{{message}}</p>
+	                    </div>
+                    {% endif %} 
+
+			        <form class="signup" action="{% url 'user:signup' %}" method="POST">
+			        	{% csrf_token %}
+			        	<label for="id_email">Correo:</label>
+						{{ form.email }}
+						{% for error in form.email.errors %} 
+							<p class="text-error"><small>{{ error }}</small></p>
+						{% endfor %}
+						<label for="id_username">Usuario:</label>
+						{{ form.username }}
+						{% for error in form.username.errors %} 
+							<p class="text-error"><small>{{ error }}</small></p>
+						{% endfor %}
+						<label for="id_password">Contraseña:</label>
+						{{ form.password }}
+						{% for error in form.password.errors %} 
+							<p class="text-error"><small>{{ error }}</small></p>
+						{% endfor %}
+						<label for="id_confirm_password">Confirmar Contraseña:</label>
+						{{ form.confirm_password }}
+						{% for error in form.confirm_password.errors %} 
+							<p class="text-error"><small>{{ error }}</small></p>
+						{% endfor %}
+			            <input type="submit" class="button" value="Registrarse" />
+			        </form>
+			    </div>
+			</div>      
+    </section>
+    <div class="clear"></div>
+    {% include 'footer.html' %}
+    <!-- BACK TO TOP BUTTON -->
+    <a href="#" class="back-to-top"></a>
+</section>
+
+{% endblock %}
+

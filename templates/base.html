@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>{% block title %} Página Oficial | Pioneros Cancún FC {% endblock %}</title>
+        <!-- META TAGS -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="user-scalable=0,width=device-width,height=device-height,initial-scale=1,maximum-scale=1" />
+        <meta name="description" content="Página Oficial del club Pioneros Cancún FC">
+        <meta name="keywords" content="pioneros, cancún, futbol, liga premier, futbol mexicano">
+        <!-- CSS FILES -->
+        {% load staticfiles %}
+        <link href="{% static 'css/normalize.css' %}" rel="stylesheet" type="text/css">
+        <link href="{% static 'css/animate.css' %}" rel="stylesheet" type="text/css">
+        <link href="{% static 'css/grid.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'css/flexslider.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
+        <link href="{% static 'css/colors.css' %}" rel="stylesheet" type="text/css">
+        <link href="{% static 'css/colorbox.css' %}" rel="stylesheet" type="text/css">
+        <link href="{% static 'css/jquery.bxslider.css' %}" rel="stylesheet" type="text/css">
+        <link href="{% static 'css/magnific-popup.css' %}" rel="stylesheet" type="text/css">
+        <link href="{% static 'css/easy-responsive-tabs.css' %}" rel="stylesheet" type="text/css">
+        <link href="{% static 'css/media.css' %}" rel="stylesheet" type="text/css">
+        <script type="text/javascript" src="{% static 'js/modernizr.js' %}"></script>
+        <!--[if lt IE 9]>
+            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+        <!-- SUB MENU -->
+        <section id="submenu-container">
+            <a id="mobile-menu" href="#">SubMenu</a>
+            <nav id="submenu">
+                <ul>
+                    <li>
+                        <a title="Facebook" target="_blank" href="https://www.facebook.com/pioneroscancunfc">
+                            <img class="social-icon" src="{% static 'images/social-icons/facebook.png' %}" alt="Facebook" />
+                        </a>
+                    </li>
+                    <li>
+                        <a title="Twitter" target="_blank" href="https://twitter.com/pionerosfc">
+                            <img class="social-icon" src="{% static 'images/social-icons/twitter.png' %}" alt="Twitter" />
+                        </a>
+                    </li>
+                    <li>
+                        <a title="Instagram" target="_blank" href="http://pinsta.me/pionerosfc">
+                            <img class="social-icon" src="{% static 'images/social-icons/instagram.png' %}" alt="Instagram" />
+                        </a>
+                    </li>
+                    <li>
+                        <a title="YouTube" target="_blank" href="https://www.youtube.com/user/clubpionerosdecancun">
+                            <img class="social-icon" src="{% static 'images/social-icons/youtube.png' %}" alt="YouTube" />
+                        </a>
+                    </li>
+                    <li>
+                        <a title="Radio Cultural" target="_blank" href="http://tunein.com/radio/Radio-Cultural-Ayuntamiento-1059-s91380/">
+                            <img class="social-icon" src="{% static 'images/social-icons/radio.png' %}" alt="Radio Cultural" />
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <!-- LOGIN MENU -->
+            <nav id="submenu-login">
+                {% if user.is_authenticated %}
+                    <ul>
+                        <li>
+                            <a href="{% url 'user:logout' %}">Salir</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'profile:edit' %}">Bienvenido: {{user.username}}</a>
+                        </li>
+                    </ul>
+                {% else %}
+                    <ul>
+                        <li>
+                            <a href="{% url 'user:signup' %}">Registro</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'user:login' %}">Ingresar</a>
+                        </li>
+                    </ul>
+                {% endif %}
+            </nav>
+        </section>
+        <div class="clear"></div>
+        <!-- HEADER -->
+        <header id="header">
+            <div class="logo">
+                <a href="{% url 'article:home' %}"><img src="{% static 'images/logo.png' %}" alt="" /></a>
+                <h3>#Todos somos pioneros..</h3>
+                <span>Sitio web oficial del club pioneros cancún fc</span>
+            </div>
+        </header>
+        <div class="clear"></div>
+        <!-- MAIN MENU -->
+        <section id="mainmenu-container">
+            <a class="toggleMenu" href="#">Menu</a>
+            <nav>
+                <ul id="mainmenu">
+                    <li>
+                        <a href="#">
+                            <span>Club</span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="{% url 'team:history' %}">
+                                    <span>Historia</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'team:stadium' %}">
+                                    <span>Estadio</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'team:directive' %}">
+                                    <span>Directiva</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'article:sponsors' %}">
+                                    <span>Patrocinadores</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span>Pioneros</span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="#">
+                                    <span>Segunda División</span>
+                                </a>
+                                <ul>
+                                    <li>
+                                        <a href="{% url 'team:coach' %}">
+                                            <span>Cuerpo Técnico</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'team:team' %}">
+                                            <span>Plantel</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'team:positions' %}">
+                                            <span>Tabla De Posiciones</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'article:gallery' %}">
+                                            <span>Galería</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>Fuerzas Básicas</span>
+                                </a>
+                                <ul>
+                                    <li>
+                                        <a href="{% url 'article:category' 'tercera-division' %}">
+                                            <span>Tercera División</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'article:category' 'cuarta-division' %}">
+                                            <span>Cuarta División</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'article:category' 'quinta-division' %}">
+                                            <span>Quinta División</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'article:category' 'femenil' %}">
+                                            <span>Femenil</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="{% url 'team:centers' %}">
+                            <span>Centros de formación</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'article:list' %}">
+                            <span>Noticias</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span>Afición</span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="{% url 'team:games' %}">
+                                    <span>Fotos</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="{% url 'article:contact' %}">
+                            <span>Contacto</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </section>
+
+        {% block content %}
+
+        {% endblock %}
+
+        <!-- JS FILES -->
+        <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/backstretch.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/jquery.flexslider.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/jquery.bxslider.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/jquery.colorbox-min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/easyResponsiveTabs.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/gallery.js' %}"></script>
+        <!-- BG IMAGE -->
+        <script type="text/javascript">
+            jQuery(window).load(function() {
+                "use strict";
+                jQuery('body').backstretch("{% static 'images/bg.jpg' %}");
+            });
+        </script>
+        <!-- SPONSORS SLIDER -->
+        <script type="text/javascript">
+            jQuery(document).ready(function() {
+                jQuery('#logos').bxSlider({
+                    auto: true,
+                    slideWidth: 180,
+                    pager: false,
+                    minSlides: 2,
+                    maxSlides: 5,
+                    slideMargin: 10
+                });
+            });
+        </script>
+        <!-- FIXTURE SLIDER -->
+        <script type="text/javascript">
+            jQuery(document).ready(function() {
+                "use strict";
+                jQuery('#fixture').bxSlider({
+                    pager: false,
+                    infiniteLoop: false,
+                    hideControlOnEnd: true
+                });
+            });
+        </script>
+        <!-- HORIZONTAL TABS -->
+        <script type="text/javascript">
+            jQuery(document).ready(function() {
+                jQuery('#horizontalTab').easyResponsiveTabs({
+                    type: 'default',
+                    width: 'auto',
+                    fit: true
+                });
+            });
+        </script>
+        <!-- POPUP BOXES -->
+        <script type="text/javascript">
+            jQuery(document).ready(function() {
+                jQuery('.popup-with-zoom-anim').magnificPopup({
+                    type: 'inline',
+                    fixedContentPos: false,
+                    fixedBgPos: true,
+                    overflowY: 'auto',
+                    closeBtnInside: true,
+                    preloader: false,
+                    midClick: true,
+                    removalDelay: 300,
+                    mainClass: 'my-mfp-zoom-in'
+                });
+            });
+        </script>
+        <script>
+        !function(d,s,id){
+            var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
+            if(!d.getElementById(id)){
+                js=d.createElement(s);
+                js.id=id;
+                js.src=p+"://platform.twitter.com/widgets.js";
+                fjs.parentNode.insertBefore(js,fjs);
+            }}(document,"script","twitter-wjs");
+        </script>
+        <!-- VERTICAL TABS -->
+        <script type="text/javascript">
+            jQuery(document).ready(function() {
+                jQuery('#verticalTab').easyResponsiveTabs({
+                    type: 'vertical',
+                    width: 'auto',
+                    fit: true
+                });
+            });
+        </script>
+        <!-- FILTERS 1 -->
+        <script type="text/javascript">
+            jQuery(document).ready(function() {
+                jQuery("#filters1").dysaniagrid({
+                    galleryid: "#gridbox1"
+                });
+            });
+        </script>
+        <div id="fb-root"></div>
+        <script>
+            (function(d, s, id) {
+              var js, fjs = d.getElementsByTagName(s)[0];
+              if (d.getElementById(id)) return;
+              js = d.createElement(s); js.id = id;
+              js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&appId=734756636615681&version=v2.0";
+              fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+        </script>
+        <script type="text/javascript" src="{% static 'js/custom.js' %}"></script>
+    </body>
+</html>

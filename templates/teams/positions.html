@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- MAIN CONTAINER -->
+<section class="maincontainer">
+    <!-- PAGE TITLE -->
+    <div class="page-title">Tabla de Posiciones</div>
+    <!-- PAGE CONTAINER -->
+    <section class="pagecontainer">
+        <div>
+            <div class="sidebarbox-title">
+                <h3>Liga Premier de Ascenso / 2015</h3>
+            </div>
+            <!-- TABLE -->
+            <div class="positions-row">
+                <a href="#">
+                    <div class="positions-row-left">
+                        <h5>Equipo</h5>        
+                    </div>
+                    <div class="positions-row-right">
+                       <div><h5>Puntos</h5></div>
+                    </div>
+                </a>                               
+            </div>
+        </div>
+    </section>
+    <div class="clear"></div>
+    {% include 'footer.html' %}
+    <!-- BACK TO TOP BUTTON -->
+    <a href="#" class="back-to-top"></a>
+</section>
+
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "admin/base.html" %}
+{% load i18n %}
+ 
+{% block title %}{{ title }} | {% trans 'Some Organisation' %}{% endblock %}
+ 
+{% block branding %}
+<style type="text/css">
+  div#header
+  {
+    background-color: #E3E3E3;
+  }
+  #branding h1, #branding h1 a:link, #branding h1 a:visited{
+  	color:#666;
+  }
+  #user-tools{
+  	color:#666;
+  }
+  #header a:link, #header a:visited {
+    color:#666; 
+  }
+  .module h2, .module caption, .inline-group h2{
+  	background: #E3E3E3;
+  }
+  a.section:link, a.section:visited{
+  	color:#666;
+  }
+</style>
+<h1 id="site-name">{% trans 'Pioneros Cancun FC' %}</h1>
+{% endblock %}
+ 
+{% block nav-global %}{% endblock %}

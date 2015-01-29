@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- MAIN CONTAINER -->
+<section class="maincontainer">
+    <!-- PAGE TITLE -->
+    <div class="page-title">Perfil de usuario</div>
+    <!-- PAGE CONTAINER -->
+    <section class="pagecontainer using-grid">   
+        <!-- CONTACT FORM -->
+        	<!-- GRID -->
+            <div class="grid">
+            	<!-- LEFT SIDE -->
+                <div class="unit two-thirds">
+
+                	<h5>Edite sus datos</h5>
+
+                	{% if message %}
+	                	<div class="black message">
+	                        <span class="message-close"></span>
+	                        <h5>Perfil editado exitosamente!</h5>
+	                        <p>{{message}}</p>
+	                    </div>
+                    {% endif %}
+
+			        <form class="profile" action="{% url 'profile:edit' %}" enctype="multipart/form-data" method="POST">
+			        	{% csrf_token %}
+			        	<label for="id_birth_date">Nacimiento:</label>
+						{{ form.birth_date }}
+						{% for error in form.birth_date.errors %} 
+							<p class="text-error"><small>{{ error }}</small></p>
+						{% endfor %}
+						<label for="id_location">Dirección:</label>
+						{{ form.location }}
+						{% for error in form.location.errors %} 
+							<p class="text-error"><small>{{ error }}</small></p>
+						{% endfor %}
+						<label for="id_description">Sobre mi:</label>
+						{{ form.description }}
+						{% for error in form.description.errors %} 
+							<p class="text-error"><small>{{ error }}</small></p>
+						{% endfor %}
+						<div class="profile-image">
+						{% if user.profile.image %}
+                    		<img width="80" height="80" src="/media/{{user.profile.image}}">
+                    	{% else %}
+                    		<img src="/static/images/user.png">
+                    	{% endif %}
+                    	<div>
+						<label for="id_image">Imágen:</label>
+						{{ form.image }}
+						{% for error in form.image.errors %} 
+							<p class="text-error"><small>{{ error }}</small></p>
+						{% endfor %}
+			            <input type="submit" class="button" value="Editar" />
+			        </form>
+			    </div>
+			</div>      
+    </section>
+    <div class="clear"></div>
+    {% include 'footer.html' %}
+    <!-- BACK TO TOP BUTTON -->
+    <a href="#" class="back-to-top"></a>
+</section>
+
+{% endblock %}
+

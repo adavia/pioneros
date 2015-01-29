@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load staticfiles %}
+
+<!-- MAIN CONTAINER -->
+<section class="maincontainer">
+    <!-- PAGE TITLE -->
+    <div class="page-title">{{article.category.name}}</div>
+    <!-- FEATURED IMAGE -->
+    <div class="page-img">
+        {% with article.image_set.all|first as img %}
+            <img src="{{ img.thumbnail1.url }}" alt="" />
+        {% endwith %}
+    </div>
+    <!-- PAGE CONTAINER -->
+    <section class="pagecontainer">
+        <!-- LEFT CONTAINER -->
+        <section class="leftcontainer">
+            <article>
+                <h2>{{article.title}}</h2>
+                <h6>{{article.created_at|date:"D d M Y - H:i"}}</h6>
+                <p>{{article.body}}</p>
+                <hr/>
+                <!-- COMMENTS -->
+                <h4>Comments</h4>
+                <div class="fb-comments" data-href="{{ url }}" data-numposts="4" data-width="100%" data-colorscheme="light">
+                </div> 
+            </article>
+        </section>
+        <!-- RIGHT CONTAINER -->
+        <section class="rightcontainer">
+            <!-- SIDEBAR BOX -->
+            <div class="sidebarbox">
+                <h3>Buscar</h3>
+                {% include 'search.html' %}
+            </div>
+            <!-- SIDEBAR BOX -->
+            <div class="sidebarbox">
+                <h3>Artículos recientes</h3>
+                <ul class="sidebarlist">
+                    {% for article in articles %}
+                    <li>
+                        <a href="{% url 'article:detail' year=article.created_at.year month=article.created_at.month day=article.created_at.day slug=article.url %}">{{article.title}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <!-- GALLERY BOX -->
+            <div class="sidebarbox">
+                <div class="sidebarbox-title">
+                    <h3>Galería</h3>
+                </div>
+                <!-- GALLERY -->
+                <ul class="team-gallery">
+                    {% for img in article.image_set.all %}
+                        <li>
+                            <a class="clb-photo" href="{{ img.thumbnail1.url }}">
+                                <img src="{{ img.thumbnail3.url }}" width="124" alt="" />
+                            </a>
+                        </li>
+                    {% endfor %}
+                    {% for video in article.video_set.all %}
+                        <li>
+                            <a class="clb-iframe" href="{{video.link}}">
+                                {% with video.article.image_set.all|first as img %}
+                                    <img src="{{ img.thumbnail3.url }}" alt="" />
+                                {% endwith %}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <a href="{% url 'article:gallery' %}" class="button button-widget">Ver más</a>
+            </div>
+        </section>
+    </section>
+    {% include 'footer.html' %}
+    <!-- BACK TO TOP BUTTON -->
+    <a href="#" class="back-to-top"></a>
+</section>
+
+{% endblock %}

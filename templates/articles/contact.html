@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- MAIN CONTAINER -->
+<section class="maincontainer">
+    <!-- PAGE TITLE -->
+    <div class="page-title">Contacto</div>
+    <!-- PAGE CONTAINER -->
+    <section class="pagecontainer using-grid">
+        <!-- GRID -->
+        <div class="grid">
+            <!-- LEFT SIDE -->
+            <div class="unit two-thirds">
+                <h2>Estadio Cancún 86</h2>
+                <p>Para cualquiér tipo de consulta por favor acercarse a nuestras oficinas ubicadas en nuestro estadio entre Av Puerto Juarez y Calle 46 o mándanos tu consulta por este medio y te estaremos contestando a la brevedad. Muchas gracias.</p>
+                <!-- GOOGLE MAP -->
+                <div class="flex-video">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3720.253358266418!2d-86.83066299999999!3d21.182092000000008!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f4c2c186a697917%3A0x6d269e9dcc9e096c!2sCancun+86!5e0!3m2!1ses!2smx!4v1422317852453" width="600" height="450" frameborder="0" style="border:0"></iframe>
+                </div>
+            </div>
+            <!-- RIGHT SIDE -->
+            <div class="unit one-third">
+                <h3>Oficina central</h3>
+                <ul class="list">
+                    <li>
+                        <strong>Dirección:</strong> Estadio Cancún 86</li>
+                    <li>
+                        <strong>Teléfono:</strong> +97 46 543232</li>
+                </ul>
+                <hr/>
+                <h3>Contacto</h3>
+                <!-- CONTACT FORM -->
+                {% if message %}
+                    <div class="black message">
+                        <span class="message-close"></span>
+                        <h5>En horabuena!</h5>
+                        <p>{{message}}</p>
+                    </div>
+                {% endif %}
+                <form class="contact" action="{% url 'article:contact' %}" method="POST">
+                    {% csrf_token %}
+                    <label for="id_name">Tu nombre:</label>
+                    {{ form.name }}
+                    {% for error in form.name.errors %} 
+                        <p class="text-error"><small>{{ error }}</small></p>
+                    {% endfor %}
+                    <label for="id_email">Tu correo:</label>
+                    {{ form.email }}
+                    {% for error in form.email.errors %} 
+                        <p class="text-error"><small>{{ error }}</small></p>
+                    {% endfor %}
+                    <label for="id_message_text">Tu mensaje:</label>
+                    {{ form.message_text }}
+                    {% for error in form.message_text.errors %} 
+                        <p class="text-error"><small>{{ error }}</small></p>
+                    {% endfor %}
+                    <input type="submit" class="button" value="Enviar" />
+                </form>
+            </div>
+        </div>
+    </section>
+    <div class="clear"></div>
+    {% include 'footer.html' %}
+    <!-- BACK TO TOP BUTTON -->
+    <a href="#" class="back-to-top"></a>
+</section>
+
+{% endblock %}

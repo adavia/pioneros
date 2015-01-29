@@ -1,0 +1,6 @@
+Gracias por registrarse en nuestro sitio {{ user.get_short_name }}!
+
+Para concluir con su registro por favor haga click en el siguiente enlace:
+{{ verification_url }}
+
+Atte. Administración Pioneros Cancún FC

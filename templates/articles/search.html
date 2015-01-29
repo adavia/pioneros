@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load staticfiles %}
+
+<!-- MAIN CONTAINER -->
+<section class="maincontainer">
+    <!-- PAGE TITLE -->
+    <div class="page-title">Últimas Noticias</div>
+    <!-- PAGE CONTAINER -->
+    <section class="pagecontainer">
+        <!-- LEFT CONTAINER -->
+        <section class="leftcontainer">
+            <!-- POST -->
+            {% if errors %}
+                {% for error in errors %}
+                    <hr>
+                    <h3>{{error}}</h3> 
+                {% endfor %}
+            {% else %}
+                {% for article in articles %}
+                    <article class="post">
+                        <figure>
+                            {% with article.image_set.all|first as img %}
+                                <a href="{% url 'article:detail' year=article.created_at.year month=article.created_at.month day=article.created_at.day slug=article.url %}">
+                                    <img src="{{ img.thumbnail2.url }}" alt="" />
+                                </a>
+                            {% endwith %}
+                            <figcaption>
+                                <h2>{{article.title}}</h2>
+                                <div class="post-date">{{article.created_at|date:"d-m-Y - H:i"}}</div>
+                            </figcaption>
+                        </figure>
+                        <p>
+                            {{article.body|truncatechars_html:200}}
+                            <a href="{% url 'article:detail' year=article.created_at.year month=article.created_at.month day=article.created_at.day slug=article.url %}">Leer más</a>
+                        </p>
+                    </article>
+                    <hr/>
+                {% empty %}
+                    <hr>
+                    <h3>No se encontró ningún resultado posible. Intente nuevamente.</h3>        
+                {% endfor %}
+            {% endif %}
+        </section>
+        <!-- RIGHT CONTAINER -->
+        <section class="rightcontainer">
+            <!-- SIDEBAR BOX -->
+            <div class="sidebarbox">
+                <h3>Buscar</h3>
+                {% include 'search.html' %}
+            </div>
+            <!-- SIDEBAR BOX -->
+            <div class="sidebarbox">
+                <h3>Artículos recientes</h3>
+                <ul class="sidebarlist">
+                    {% for l in last %}
+                    <li>
+                        <a href="{% url 'article:detail' year=l.created_at.year month=l.created_at.month day=l.created_at.day slug=l.url %}">{{l.title}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <!-- SIDEBAR BOX -->
+            <div class="sidebarbox">
+                <div class="sidebarbox-title">
+                    <h3>Últimos resultados de liga</h3>
+                </div>
+                <!-- TABLE -->
+                <div class="fixture-row">
+
+                </div>
+            </div>
+            <!-- SIDEBAR BOX -->
+            <div class="sidebarbox">
+                <div class="sidebarbox-title">
+                    <h3>Galería de fotos</h3>
+                </div>
+                <!-- GALLERY -->
+                <ul class="team-gallery">
+                    {% for img in images %}
+                    <li>
+                        <a class="clb-photo" href="{{ img.thumbnail1.url }}">
+                            <img src="{{ img.thumbnail3.url }}" alt="" />
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <a href="galleries.html" class="button button-widget">View All</a>
+            </div>
+        </section>
+    </section>
+    {% include 'footer.html' %}
+    <!-- BACK TO TOP BUTTON -->
+    <a href="#" class="back-to-top"></a>
+</section>
+
+{% endblock %}
